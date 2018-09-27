@@ -136,5 +136,8 @@ public class CheckoutCTL {
 	}
 
 
+	public void setStateRoom(){
+		this.state = State.ROOM;
+	}
 
 }
