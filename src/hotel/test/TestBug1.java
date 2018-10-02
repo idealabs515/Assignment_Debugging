@@ -63,5 +63,20 @@ public class TestBug1 {
 		checkoutCTL = null;
 	}
 	
+	@Test 
+    public void testBug1_0() throws Exception {
+		//set room id for record service control class
+		recordServiceCTL.roomNumberEntered(room.getId());
+		double serviceFeeExpected = 7.00;
+		IOUtils.output("Service charge system Output which equals to expected value");
+		//add service charge to the room given above
+		recordServiceCTL.serviceDetailsEntered(ServiceType.ROOM_SERVICE, serviceFeeExpected);
+		//get the added service fee from checkout control class
+		double serviceFee = checkoutCTL.getFirstServiceCharge(room.getId());
+		IOUtils.output("Trace record for RecordServiceCTL class serviceDetailsEntered method:");	
+		String mesg = String.format("\nCharge Listed for Room %d for %s is $%.2f\n", room.getId(), ServiceType.ROOM_SERVICE.getDescription(), serviceFee);
+		IOUtils.outputln(mesg);	
+		assertEquals(serviceFeeExpected, serviceFee, 0);
+	}
 }
 
