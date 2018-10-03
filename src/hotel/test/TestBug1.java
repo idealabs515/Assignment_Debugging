@@ -106,5 +106,18 @@ public class TestBug1 {
 		IOUtils.outputln(mesg);	
 		assertEquals(serviceFeeExpected, serviceFee, 0);
 	}
+	
+	@Test 
+    public void testBug1_3() throws Exception {
+		double serviceFeeExpected = 7.00;
+		//testing the constructor for service charge class
+		ServiceCharge serviceCharge = new ServiceCharge(ServiceType.ROOM_SERVICE, serviceFeeExpected);
+		//get the service fee from Service charge class
+		double serviceFee = serviceCharge.getCost();
+		IOUtils.output("Trace record for ServiceCharge class constructor:");
+		String mesg = String.format("\nCharge Listed for Room %d for %s is $%.2f\n", room.getId(), ServiceType.ROOM_SERVICE.getDescription(), serviceFee);
+		IOUtils.outputln(mesg);	
+		assertEquals(serviceFeeExpected, serviceFee, 0);
+	}
 }
 
