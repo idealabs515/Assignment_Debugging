@@ -91,5 +91,20 @@ public class TestBug1 {
 		IOUtils.outputln(mesg);	
 		assertEquals(serviceFeeExpected, serviceFee, 0);
 	}
+
+	@Test 
+    public void testBug1_2() throws Exception {
+
+		double serviceFeeExpected = 7.00;
+		Booking booking = hotel.findActiveBookingByRoomId(room.getId());
+		//directly adding the service charge from booking class
+		booking.addServiceCharge(ServiceType.ROOM_SERVICE, serviceFeeExpected);
+		//get the added service fee from checkout control class
+		double serviceFee = checkoutCTL.getFirstServiceCharge(room.getId());
+		IOUtils.output("Trace record for Booking class addServiceCharge method:");
+		String mesg = String.format("\nCharge Listed for Room %d for %s is $%.2f\n", room.getId(), ServiceType.ROOM_SERVICE.getDescription(), serviceFee);
+		IOUtils.outputln(mesg);	
+		assertEquals(serviceFeeExpected, serviceFee, 0);
+	}
 }
 
