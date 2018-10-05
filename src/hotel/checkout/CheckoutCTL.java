@@ -135,6 +135,19 @@ public class CheckoutCTL {
 		checkoutUI.displayMessage("Checking out completed");
 	}
 
+	//method added to check buggy behaviour
+	public double getFirstServiceCharge(int roomId) {
+		this.roomId = roomId;
+		Booking booking = hotel.findActiveBookingByRoomId(roomId);
+		if (booking != null) {
+			List<ServiceCharge> charges = booking.getCharges();
+			if (charges != null && !charges.isEmpty()) {
+				return charges.get(0).getCost();
+			}
+		}
+		//this case will be also a buggy behavior 
+		return 0;
+	}
 
 
 }
