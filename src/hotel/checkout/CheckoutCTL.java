@@ -148,6 +148,12 @@ public class CheckoutCTL {
 		//this case will be also a buggy behavior 
 		return 0;
 	}
+	
+	public void setStateToRoom() {
+		//Setting state to ROOM for testing buggy flow 2
+		checkoutUI.displayMessage("Setting state to ROOM for testing buggy flow 2");
+		state = State.ROOM;
+	}
 
 
 }
