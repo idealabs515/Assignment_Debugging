@@ -73,7 +73,15 @@ public class RecordServiceCTL {
 		recordServiceUI.displayMessage("Pay for service completed");
 	}
 
-
+	//Mock method to test the condition 
+	public Booking testBug2(int roomNumber) {
+		if (state != State.ROOM) {
+			String mesg = String.format("PayForServiceCTL: roomNumberEntered : bad state : %s", state);
+			throw new RuntimeException(mesg);
+		}
+		booking = hotel.findActiveBookingByRoomId(roomNumber);
+		return booking;
+	}
 	
 
 }
