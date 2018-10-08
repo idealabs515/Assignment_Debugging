@@ -65,6 +65,27 @@ public class TestBug2 {
 	}
 	
 	
-
+	@Test 
+    public void testBug2_0() throws Exception {
+		//change state to room to prevent user input
+		checkoutCTL.setStateToRoom();
+		IOUtils.outputln("\nTrace record for system output for checkout process");
+		//give the room id of the booking above
+		checkoutCTL.roomIdEntered(room.getId());
+		//accept the charges to continue testing
+		checkoutCTL.chargesAccepted(true);
+		//enter the credit card details
+		checkoutCTL.creditDetailsEntered(card.getType(), card.getNumber(), card.getCcv());
+		//Testing the expected behaviour
+		IOUtils.outputln("\nMock method to test the condition for expected error message to be called");
+		Booking booking = recordServiceCTL.testBug2(room.getId());
+		//Checking for trace if the booking is null
+		if (booking != null)
+			IOUtils.outputln("Expected null but an active booking has been found");
+		else
+			IOUtils.outputln("Returns null as expected");
+		assertEquals(null, booking);
+	
+	}
 }
 
