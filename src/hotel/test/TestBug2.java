@@ -87,5 +87,22 @@ public class TestBug2 {
 		assertEquals(null, booking);
 	
 	}
+	
+	@Test 
+    public void testBug2_1() throws Exception {
+		IOUtils.outputln("\nTrace record for Hotel class checkout method:");	
+		//directly checkout the room from the hotel class
+		hotel.checkout(room.getId());
+		//Testing the expected behaviour
+		IOUtils.outputln("\nMock method to test the condition for expected error message to be called");
+		Booking booking = recordServiceCTL.testBug2(room.getId());
+		//Checking for trace if the booking is null
+		if (booking != null)
+			IOUtils.outputln("Expected null but an active booking has been found");
+		else
+			IOUtils.outputln("Returns null as expected");
+		
+		assertEquals(null, booking);
+	}
 }
 
