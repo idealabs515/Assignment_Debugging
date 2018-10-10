@@ -118,7 +118,10 @@ public class Hotel {
 		booking.addServiceCharge(serviceType, cost);
 	}
 
-	
+	/*
+	Bug that lead to user being able to add service charge to the room that has already check out has been
+	solved by removing the booking after the checkout is performed.
+	*/
 	public void checkout(int roomId) {
 		Booking booking = activeBookingsByRoomId.get(roomId);
 		if (booking == null) {
@@ -126,6 +129,7 @@ public class Hotel {
 			throw new RuntimeException(mesg);
 		}
 		booking.checkOut();
+		activeBookingsByRoomId.remove(roomId);
 	}
 
 
