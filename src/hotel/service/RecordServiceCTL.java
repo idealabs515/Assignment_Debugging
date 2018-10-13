@@ -41,6 +41,10 @@ public class RecordServiceCTL {
 			String mesg = String.format("No active booking for room id: %d", roomNumber);
 			recordServiceUI.displayMessage(mesg);
 		}
+		if(!booking.isCheckedIn()) {//Immediate check for check in state
+			System.out.println("Sorry the room  is checked out");
+			state = State.CANCELLED;
+		}
 		else {
 			this.roomNumber = roomNumber;
 			state = State.SERVICE;
@@ -54,9 +58,13 @@ public class RecordServiceCTL {
 			String mesg = String.format("PayForServiceCTL: serviceDetailsEntered : bad state : %s", state);
 			throw new RuntimeException(mesg);
 		}
+		if(booking.isCheckedIn())
+		{
 		hotel.addServiceCharge(roomNumber, serviceType, cost);
 		
 		recordServiceUI.displayServiceChargeMessage(roomNumber, cost, serviceType.getDescription());
+		}
+		
 		state = State.COMPLETED;
 		recordServiceUI.setState(RecordServiceUI.State.COMPLETED);
 	}
