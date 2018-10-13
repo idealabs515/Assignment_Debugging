@@ -134,17 +134,26 @@ public class Booking {
 
 
 	public void checkIn() {
+		if(isPending())
+		{
 		room.checkin();
+		state = State.CHECKED_IN;
+		}
 	}
 
-
-	public void addServiceCharge(ServiceType serviceType, double cosst) {
+//Changed cosst to cost
+	public void addServiceCharge(ServiceType serviceType, double cost) {
+		if(isCheckedIn())//adds service only if booking is checked in
 		charges.add(new ServiceCharge(serviceType, cost));
 	}
 
 
 	public void checkOut() {
+		if(isCheckedIn())
+		{
 		room.checkout(this);
+        state = State.CHECKED_OUT;
+		}
 	}
 
 }
