@@ -122,6 +122,10 @@ public class CheckoutCTL {
 			checkoutUI.setState(CheckoutUI.State.COMPLETED);
 		}
 	}
+	//method added for checking
+	public void setRoomState(){
+		this.state = State.ROOM;
+	}
 
 
 	public void cancel() {
